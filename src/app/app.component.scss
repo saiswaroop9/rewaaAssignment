@@ -1,0 +1,58 @@
+.root{
+    height:100%;
+    width:100%;
+    overflow-y: hidden;
+    &_header{
+        width: 100%;
+        background: #3fb9b7;
+        color:#fff;
+        &_container{
+            width: 100%;
+            justify-content: space-between;
+            a{
+                color: #fff;
+            }
+            &_left{
+                flex-basis: 75%;
+                display: flex;
+                align-items: center;
+                &_item{
+                    font-weight: 600;
+                }
+            }
+            &_right{
+                flex-basis: 25%;
+                display: flex;
+                justify-content: space-evenly;
+                cursor: pointer;
+                &_user{
+                    display: flex;
+                    align-items: center;
+                    color:#fff;
+                }
+                &_name{
+                    display: flex;
+                    align-items: center;
+                    color:#fff;
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
+    &_body{
+        height: 100%;
+        width: 100%;
+        display: flex;
+    }
+}
+
+::ng-deep router-outlet + *:not(nav){
+    height: 100%;
+    width: 100%;
+}
+
+alert{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}

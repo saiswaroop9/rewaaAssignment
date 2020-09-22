@@ -1,0 +1,9 @@
+.message{
+    text-align:center;
+    position: relative;
+    &_close{
+        position:absolute;
+        top:5px;
+        right:5px;
+    }
+}

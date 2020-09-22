@@ -1,0 +1,112 @@
+<div class="main">
+    <div class="main_header">
+        <div class="main_header_search">
+            <input type="text" class="form-control" [(ngModel)]="productName" placeholder="name">
+        </div>
+        <div class="main_header_actions">
+            <div class="btn-group mr-3">
+                <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                  <button class="btn btn-outline-primary" ngbDropdownToggle><i class="fa fa-filter" aria-hidden="true"></i></button>
+                  <div class="dropdown-menu" ngbDropdownMenu>
+                    <button ngbDropdownItem *ngFor="let category of productCategories|keyvalue;" (click)="filterByCategory(category.value)">{{category.value}}</button>
+                  </div>
+                </div>
+              </div>
+            <i class="fa fa-trash-o main_header_actions_delete" aria-hidden="true" (click)="deleteMultipleProduct()"></i>
+            <i class="fa fa-plus main_header_actions_add" aria-hidden="true" title="Click to add New Product" (click)="openProductForm()"></i>
+        </div>
+    </div>
+    <div class="main_body">
+        <div class="main_body_item" *ngFor="let product of lsitOfProducts|productCategoryfilter:filterCategory|productNamefilter:productName">
+                <div class="product-card">
+                    <div class="product-card_checkbox">
+                        <label class="checkboxcontainer">
+                            <input type="checkbox" value="false" (change)="addproductToDeleteList($event,product.id)">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="badge">Hot</div>
+                    <div class="product-tumb">
+                        <img [src]="product.url" alt="{{product.name}}">
+                    </div>
+                    <div class="product-details">
+                        <span class="product-catagory">{{product.category}}</span>
+                        <h5 (click)="getProductDetails(product.id)">{{product.name|slice:0:15}}</h5>
+                        <p>{{product.description|slice:0:15}}</p>
+                        <div class="product-bottom-details">
+                            <div class="product-price">{{product.price|currency:'INR':'symbol'}}</div>
+                            <div class="product-links">
+                                <a (click)="deleteProduct(product.id)"><i class="fa fa-trash-o"  aria-hidden="true"></i></a>
+                                <a><i class="fa fa-heart"></i></a>
+                                <a><i class="fa fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #productmodal let-modal>
+    <div class="modal-header">
+            <h4 class="modal-title">Product</h4>
+            <button type="button" class="closeBtn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+            <form [formGroup]="productForm" (ngSubmit)="addNewProduct()">
+                <div class="productformcontainer">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+                        <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                            <div *ngIf="f.price.errors.required">Price is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Image Url</label>
+                        <input type="text" formControlName="url" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.url.errors }" />
+                        <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
+                            <div *ngIf="f.url.errors.required">url is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select formControlName="category" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.category.errors }" placeholder="Category">
+                            <option *ngFor="let productCategory of productCategories|keyvalue;" [value]="productCategory.value">{{productCategory.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                            <div *ngIf="f.category.errors.required">Category is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Sub Category</label>
+                        <select formControlName="subCategory" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.subCategory.errors }" placeholder="subCategory">
+                            <option *ngFor="let productSubCategory of productSubCategories|keyvalue;" [value]="productSubCategory.value">{{productSubCategory.value}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.subCategory.errors" class="invalid-feedback">
+                            <div *ngIf="f.subCategory.errors.required">SubCategory is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea type="text" placeholder="Description . . ." formControlName="description" class="form-control" rows="4" cols="50"
+                                [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                            <div *ngIf="f.description.errors.required">Description is required</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Submit</button>
+            </form>
+    </div>
+    </ng-template>

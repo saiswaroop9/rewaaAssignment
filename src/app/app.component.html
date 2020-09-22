@@ -1,0 +1,22 @@
+<!-- nav -->
+
+
+<!-- main app container -->
+<div class="root">
+        <nav class="navbar navbar-expand root_header" *ngIf="currentUser">
+            <div class="navbar-nav root_header_container">
+                <div class="root_header_container_left">
+                    <a class="nav-item nav-link root_header_container_left_item" routerLink="/">Rewaa</a>
+                </div>
+                <div class="root_header_container_right">
+                <span class="root_header_container_right_name">{{currentUser.firstName}}</span> 
+                    <i class="fa fa-user-o root_header_container_right_user" aria-hidden="true"></i>
+                    <a class="nav-item nav-link root_header_items_item" (click)="logout()">Logout</a>
+                </div>
+            </div>
+        </nav>
+        <div class="root_body">
+            <alert></alert>
+            <router-outlet></router-outlet>
+        </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="productconatiner">
+    <ng-container *ngIf="productDetails"> 
+        <div class="productconatiner_imageconatiner">
+            <img [src]="productDetails.url" alt="{{productDetails.name}}"/>
+            <div class="productconatiner_imageconatiner_action">
+                <button class="btn productconatiner_imageconatiner_action_addtocart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                <button class="btn productconatiner_imageconatiner_action_buy"><i class="fa fa-bolt" aria-hidden="true"></i>Buy now</button>
+            </div>
+        </div>
+        <div class="productconatiner_description">
+            <div class="productconatiner_description_name">
+               <h4>{{productDetails.name}}</h4>
+            </div>
+            <div class="productconatiner_description_category">
+                <p>{{productDetails.category}}, {{productDetails.subCategory}}</p>
+            </div>
+            <div class="productconatiner_description_description">
+                <p>{{productDetails.description}}</p>
+            </div>
+            <div class="productconatiner_description_price">
+                {{productDetails.price|currency:'INR':'symbol'}}
+            </div>
+        </div>
+    </ng-container>
+</div>

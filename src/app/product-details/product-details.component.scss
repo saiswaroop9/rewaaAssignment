@@ -1,0 +1,49 @@
+.productconatiner{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding:3%;
+    &_imageconatiner{
+        width:400px;
+        height:400px;
+        padding: 10px;
+        img{
+            display: inline-block;
+            max-height: 416px;
+            max-width: 416px;
+            vertical-align: top;
+            position: inherit;
+            user-select: none;
+        }
+        &_action{
+            padding-top:30px;
+            width: 100%;
+            display: flex;
+            &_addtocart{
+               background-color: #ff9f00;
+                color:#fff;
+                min-width:150px;
+                margin-right:10px;
+            }
+            &_buy{
+                background: #fb641b ;
+                color:#fff;
+                min-width:150px;
+            }
+        }
+    }
+    &_description{
+        padding:2%;
+        &_price{
+            font-weight: 600;
+        }
+        &_category{
+            font-weight: 600;
+        }
+        &_description{
+            font-size: 14px;
+        }
+    }
+}
